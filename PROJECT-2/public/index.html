@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#100b12">
+  <meta name="description" content="PROJECT 2 - iki şampiyon, tek arena.">
+  <title>PROJECT 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">PROJECT <b>2</b></div>
+    <div id="connection-status" class="connection"><i></i><span>BAĞLANIYOR</span></div>
+  </header>
+
+  <main>
+    <section id="screen-home" class="screen active home-screen">
+      <div class="home-rune">P<span>2</span></div>
+      <p class="eyebrow">TWO CHAMPIONS · ONE ARENA</p>
+      <h1>DUEL<br><em>BEGINS.</em></h1>
+      <p class="muted">Şampiyonunu seç. Rakibini oku. Arenada hayatta kal.</p>
+      <button id="btn-play" class="primary">OYNA</button>
+      <button id="btn-settings" class="ghost">AYARLAR</button>
+      <div class="home-foot">5 DAKİKALIK ÖZEL 1V1 DÜELLO</div>
+    </section>
+
+    <section id="screen-rooms" class="screen">
+      <button class="back" data-back="home">← GERİ</button>
+      <p class="eyebrow">ÇEVRİM İÇİ DÜELLO</p><h2>ODA SİSTEMİ</h2>
+      <button id="btn-create-room" class="primary">ODA OLUŞTUR</button>
+      <div class="separator"><span>VEYA</span></div>
+      <label for="room-code-input">ODA KODU</label>
+      <input id="room-code-input" class="text-input code-input" maxlength="5" placeholder="ÖRN. A7K2P" autocomplete="off">
+      <button id="btn-join-room" class="secondary">KODA KATIL</button>
+      <p id="room-error" class="message"></p>
+    </section>
+
+    <section id="screen-lobby" class="screen">
+      <button class="back" data-back="rooms">← GERİ</button>
+      <p class="eyebrow">ÖZEL MAÇ</p><h2>ODA KODUN</h2>
+      <button id="btn-copy-code" class="room-code">----- <small>KOPYALA</small></button>
+      <div class="player-slots">
+        <div class="player-slot"><span>OYUNCU 1</span><b id="lobby-player-1">Sen</b><i id="lobby-ready-1">BEKLİYOR</i></div>
+        <div class="player-slot"><span>OYUNCU 2</span><b id="lobby-player-2">Rakip bekleniyor</b><i id="lobby-ready-2">BEKLİYOR</i></div>
+      </div>
+      <p id="lobby-message" class="message">Rakibin odaya katılması bekleniyor.</p>
+      <button id="btn-open-champions" class="primary" disabled>ŞAMPİYON SEÇ</button>
+    </section>
+
+    <section id="screen-champions" class="screen champion-screen">
+      <button class="back" data-back="lobby">← GERİ</button>
+      <p class="eyebrow">SAVAŞA HAZIRLAN</p><h2>ŞAMPİYON SEÇ</h2>
+      <input id="champion-search" class="text-input" placeholder="Şampiyon ara..." autocomplete="off">
+      <div class="champion-filter">
+        <button class="filter active" data-filter="Tümü">TÜMÜ</button>
+        <button class="filter" data-filter="Büyücü">BÜYÜCÜ</button>
+        <button class="filter" data-filter="Savaşçı">SAVAŞÇI</button>
+        <button class="filter" data-filter="Nişancı">NİŞANCI</button>
+        <button class="filter" data-filter="Suikastçı">SUİKASTÇI</button>
+      </div>
+      <div id="champion-grid" class="champion-grid"></div>
+      <div id="champion-detail" class="champion-detail"><b>Şampiyon seçilmedi</b><span>Bir portreye dokunarak yeteneklerini gör.</span></div>
+      <button id="btn-lock-champion" class="primary" disabled>ŞAMPİYONU KİLİTLE</button>
+      <p id="champion-message" class="message"></p>
+    </section>
+
+    <section id="screen-battle" class="screen battle-screen">
+      <div class="battle-header">
+        <div class="fighter-info enemy-info">
+          <span class="small-label">RAKİP</span><b id="enemy-champion-name">RAKİP</b>
+          <div class="health-track"><div id="enemy-health" class="health-fill"></div></div>
+          <span id="enemy-hp" class="stat">1000 / 1000</span>
+        </div>
+        <div class="timer-wrap"><div id="match-timer" class="timer">05:00</div><span>ARENA</span></div>
+        <div class="fighter-info self-info">
+          <span class="small-label">SEN</span><b id="self-champion-name">ŞAMPİYON</b>
+          <div class="health-track"><div id="self-health" class="health-fill"></div></div>
+          <span id="self-hp" class="stat">1000 / 1000</span>
+        </div>
+      </div>
+
+      <div class="arena-panel">
+        <div class="arena-topline"><span>⚔</span><b>LANE DUEL</b><span>⚔</span></div>
+        <div id="game-container" class="game-container"></div>
+        <div class="lane-captions"><span>SOL</span><span>ORTA</span><span>SAĞ</span></div>
+        <div id="battle-feedback" class="battle-feedback"></div>
+        <div id="disconnect-overlay" class="disconnect-overlay hidden">
+          <b>BAĞLANTI BEKLENİYOR</b><span>Rakibin yeniden bağlanması için 30 saniye</span>
+        </div>
+      </div>
+
+      <div class="battle-controls">
+        <div class="mana-line"><span>MANA</span><b id="mana-value">100 / 100</b></div>
+        <div class="mana-track"><div id="mana-fill" class="mana-fill"></div></div>
+        <div class="skill-row">
+          <button class="skill" data-skill="Q"><b>Q</b><small id="skill-q-name">YETENEK</small><em></em></button>
+          <button class="skill" data-skill="W"><b>W</b><small id="skill-w-name">YETENEK</small><em></em></button>
+          <button class="skill" data-skill="E"><b>E</b><small id="skill-e-name">YETENEK</small><em></em></button>
+          <button class="skill ultimate" data-skill="R"><b>R</b><small id="skill-r-name">ULTİ</small><em></em></button>
+        </div>
+        <div class="move-row">
+          <button id="btn-move-left" class="move">← SOL</button>
+          <div><span id="current-lane">ORTA ŞERİT</span><small>KAÇIŞ</small></div>
+          <button id="btn-move-right" class="move">SAĞ →</button>
+        </div>
+        <div class="target-row">
+          <span>HEDEF ŞERİT</span>
+          <button class="target" data-lane="0">SOL</button>
+          <button class="target active" data-lane="1">ORTA</button>
+          <button class="target" data-lane="2">SAĞ</button>
+        </div>
+        <div class="combat-stats"><span>VERİLEN HASAR <b id="damage-stat">0</b></span><span>İSABET <b id="hit-stat">0</b></span></div>
+      </div>
+    </section>
+
+    <section id="screen-result" class="screen result-screen">
+      <p class="eyebrow">DÜELLO TAMAMLANDI</p>
+      <h1 id="result-title">ZAFER</h1>
+      <p id="result-description" class="muted">Arena senin.</p>
+      <div class="result-stats"><span>HASARIN <b id="result-damage">0</b></span><span>İSABETİN <b id="result-hits">0</b></span></div>
+      <button id="btn-rematch" class="primary">YENİDEN OYNA</button>
+      <button id="btn-home" class="ghost">ANA MENÜ</button>
+    </section>
+
+    <section id="screen-settings" class="screen">
+      <button class="back" data-back="home">← GERİ</button>
+      <p class="eyebrow">TERCİHLER</p><h2>AYARLAR</h2>
+      <label class="setting-row"><span>Arka plan müziği</span><input id="setting-music" type="checkbox" checked></label>
+      <label class="setting-row"><span>Savaş sesleri</span><input id="setting-sfx" type="checkbox" checked></label>
+      <label class="setting-row volume-setting"><span>Ses seviyesi <b id="volume-label">50%</b></span><input id="setting-volume" type="range" min="0" max="100" value="50"></label>
+      <p class="muted">Müzik ve sesler oyuna özel üretilen basit seslerdir.</p>
+    </section>
+  </main>
+  <div id="toast" class="toast"></div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+<script src="/js/champions.js"></script>
+<script src="/js/audio.js"></script>
+<script src="/js/network.js"></script>
+<script src="/js/game.js"></script>
+<script src="/js/interface.js"></script>
+<script src="/js/main.js"></script>
+</body></html>

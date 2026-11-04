@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#7209b7"/><stop offset="1" stop-color="#15101d"/></linearGradient><linearGradient id="armor" x2="0.8" y2="1"><stop stop-color="#4361ee"/><stop offset="1" stop-color="#7209b7"/></linearGradient><radialGradient id="glow"><stop stop-color="#4361ee" stop-opacity=".8"/><stop offset="1" stop-color="#7209b7" stop-opacity="0"/></radialGradient></defs>
+<rect width="120" height="140" rx="12" fill="url(#bg)"/><circle cx="60" cy="58" r="53" fill="url(#glow)" opacity=".65"/>
+<path d="M9 140 Q10 96 38 88 L60 82 L84 89 Q112 102 112 140Z" fill="#17131e" stroke="#4361ee" stroke-width="2"/>
+<path d="M38 91 L60 79 L83 91 L93 140 L26 140Z" fill="url(#armor)" stroke="#ead6b0" stroke-opacity=".5"/>
+<path d="M38 43 Q39 22 60 22 Q82 23 83 46 L78 72 Q70 88 60 88 Q47 84 41 70Z" fill="#c58e70" stroke="#291b27" stroke-width="3"/>
+<path d="M24 53 Q16 23 48 12 L68 18 Q91 33 78 61 L65 42 Q45 57 24 53Z" fill="#7209b7" stroke="#4361ee" stroke-width="2"/>
+<path d="M43 58 Q50 53 56 58 M65 58 Q72 53 78 58" fill="none" stroke="#291b27" stroke-width="3"/>
+<circle cx="51" cy="61" r="2.5" fill="#fff4d6"/><circle cx="70" cy="61" r="2.5" fill="#fff4d6"/>
+<path d="M55 76 Q61 80 67 75" fill="none" stroke="#6f3442" stroke-width="2"/>
+<path d="M34 91 L18 113 L32 119 L44 96 M86 91 L103 112 L89 120 L76 96" fill="#7209b7" stroke="#4361ee" stroke-width="2"/>
+<g fill="#4361ee" stroke="#241a25" stroke-width="2"><path d="M80 70 L110 46 L91 85 L73 91Z"/></g>
+<path d="M8 126 H112" stroke="#4361ee" stroke-width="2" opacity=".8"/><text x="60" y="135" text-anchor="middle" font-family="Arial" font-size="8" font-weight="bold" fill="#fff0d2">KAI'SA</text></svg>

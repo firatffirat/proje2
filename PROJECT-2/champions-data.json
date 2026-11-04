@@ -1,0 +1,562 @@
+[
+  {
+    "id": "ahri",
+    "name": "Ahri",
+    "role": "Büyücü / Suikastçı",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Küre"
+      },
+      {
+        "key": "W",
+        "name": "Tilki Ateşi"
+      },
+      {
+        "key": "E",
+        "name": "Ayartma"
+      },
+      {
+        "key": "R",
+        "name": "Ruh Saldırısı"
+      }
+    ],
+    "colors": [
+      "#9b5de5",
+      "#f15bb5"
+    ]
+  },
+  {
+    "id": "yasuo",
+    "name": "Yasuo",
+    "role": "Savaşçı / Suikastçı",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Çelik Fırtına"
+      },
+      {
+        "key": "W",
+        "name": "Rüzgâr Duvarı"
+      },
+      {
+        "key": "E",
+        "name": "Süpürüş"
+      },
+      {
+        "key": "R",
+        "name": "Son Nefes"
+      }
+    ],
+    "colors": [
+      "#277da1",
+      "#90e0ef"
+    ]
+  },
+  {
+    "id": "lux",
+    "name": "Lux",
+    "role": "Büyücü / Destek",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Işık Bağı"
+      },
+      {
+        "key": "W",
+        "name": "Prizmatik Bariyer"
+      },
+      {
+        "key": "E",
+        "name": "Işık Küresi"
+      },
+      {
+        "key": "R",
+        "name": "Son Parıltı"
+      }
+    ],
+    "colors": [
+      "#ffd166",
+      "#fff3b0"
+    ]
+  },
+  {
+    "id": "jinx",
+    "name": "Jinx",
+    "role": "Nişancı",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Değiştir!"
+      },
+      {
+        "key": "W",
+        "name": "Zap!"
+      },
+      {
+        "key": "E",
+        "name": "Alev Cümbüşü"
+      },
+      {
+        "key": "R",
+        "name": "Süper Mega Roket"
+      }
+    ],
+    "colors": [
+      "#e63946",
+      "#4cc9f0"
+    ]
+  },
+  {
+    "id": "leesin",
+    "name": "Lee Sin",
+    "role": "Dövüşçü",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Ses Dalgası"
+      },
+      {
+        "key": "W",
+        "name": "Koruma"
+      },
+      {
+        "key": "E",
+        "name": "Fırtına"
+      },
+      {
+        "key": "R",
+        "name": "Ejderhanın Gazabı"
+      }
+    ],
+    "colors": [
+      "#d62828",
+      "#fcbf49"
+    ]
+  },
+  {
+    "id": "zed",
+    "name": "Zed",
+    "role": "Suikastçı",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Keskin Shuriken"
+      },
+      {
+        "key": "W",
+        "name": "Gölgelerin Pençesi"
+      },
+      {
+        "key": "E",
+        "name": "Gölge Darbesi"
+      },
+      {
+        "key": "R",
+        "name": "Ölüm İşareti"
+      }
+    ],
+    "colors": [
+      "#343a40",
+      "#adb5bd"
+    ]
+  },
+  {
+    "id": "garen",
+    "name": "Garen",
+    "role": "Savaşçı / Tank",
+    "difficulty": "Kolay",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Kararlı Vuruş"
+      },
+      {
+        "key": "W",
+        "name": "Cesaret"
+      },
+      {
+        "key": "E",
+        "name": "Yargı"
+      },
+      {
+        "key": "R",
+        "name": "Demacia'nın Adaleti"
+      }
+    ],
+    "colors": [
+      "#4361ee",
+      "#90a8c3"
+    ]
+  },
+  {
+    "id": "missfortune",
+    "name": "Miss Fortune",
+    "role": "Nişancı",
+    "difficulty": "Kolay",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Çifte Vuruş"
+      },
+      {
+        "key": "W",
+        "name": "Aşkın Atışı"
+      },
+      {
+        "key": "E",
+        "name": "Kurşun Yağmuru"
+      },
+      {
+        "key": "R",
+        "name": "Mermi Zamanı"
+      }
+    ],
+    "colors": [
+      "#c9184a",
+      "#ffb3c1"
+    ]
+  },
+  {
+    "id": "katarina",
+    "name": "Katarina",
+    "role": "Suikastçı",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Zıplayan Bıçak"
+      },
+      {
+        "key": "W",
+        "name": "Hazırlık"
+      },
+      {
+        "key": "E",
+        "name": "Shunpo"
+      },
+      {
+        "key": "R",
+        "name": "Ölüm Çiçeği"
+      }
+    ],
+    "colors": [
+      "#6a040f",
+      "#e85d04"
+    ]
+  },
+  {
+    "id": "ezreal",
+    "name": "Ezreal",
+    "role": "Nişancı / Büyücü",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Gizemli Atış"
+      },
+      {
+        "key": "W",
+        "name": "Özüt Akışı"
+      },
+      {
+        "key": "E",
+        "name": "Gizemli Sıçrayış"
+      },
+      {
+        "key": "R",
+        "name": "İsabetli Salvo"
+      }
+    ],
+    "colors": [
+      "#0077b6",
+      "#48cae4"
+    ]
+  },
+  {
+    "id": "ashe",
+    "name": "Ashe",
+    "role": "Nişancı / Destek",
+    "difficulty": "Kolay",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Buz Atışı"
+      },
+      {
+        "key": "W",
+        "name": "Salvo"
+      },
+      {
+        "key": "E",
+        "name": "Alaca Şahin"
+      },
+      {
+        "key": "R",
+        "name": "Büyülü Kristal Ok"
+      }
+    ],
+    "colors": [
+      "#4895ef",
+      "#caf0f8"
+    ]
+  },
+  {
+    "id": "darius",
+    "name": "Darius",
+    "role": "Savaşçı",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Biç"
+      },
+      {
+        "key": "W",
+        "name": "Sakatla"
+      },
+      {
+        "key": "E",
+        "name": "Yakalama"
+      },
+      {
+        "key": "R",
+        "name": "Noxus Giyotini"
+      }
+    ],
+    "colors": [
+      "#9d0208",
+      "#6c757d"
+    ]
+  },
+  {
+    "id": "akali",
+    "name": "Akali",
+    "role": "Suikastçı",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Beş Nokta Saldırısı"
+      },
+      {
+        "key": "W",
+        "name": "Alacakaranlık Perdesi"
+      },
+      {
+        "key": "E",
+        "name": "Çevik Silah"
+      },
+      {
+        "key": "R",
+        "name": "Kusursuz İnfaz"
+      }
+    ],
+    "colors": [
+      "#386641",
+      "#a7c957"
+    ]
+  },
+  {
+    "id": "vayne",
+    "name": "Vayne",
+    "role": "Nişancı",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Kazıkatar"
+      },
+      {
+        "key": "W",
+        "name": "Gümüş Oklar"
+      },
+      {
+        "key": "E",
+        "name": "Mahkûm Et"
+      },
+      {
+        "key": "R",
+        "name": "Son Saat"
+      }
+    ],
+    "colors": [
+      "#495057",
+      "#6c757d"
+    ]
+  },
+  {
+    "id": "thresh",
+    "name": "Thresh",
+    "role": "Destek / Tank",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Ölüm Cezası"
+      },
+      {
+        "key": "W",
+        "name": "Karanlık Geçit"
+      },
+      {
+        "key": "E",
+        "name": "Derisini Yüz"
+      },
+      {
+        "key": "R",
+        "name": "Hücre"
+      }
+    ],
+    "colors": [
+      "#2d6a4f",
+      "#95d5b2"
+    ]
+  },
+  {
+    "id": "leona",
+    "name": "Leona",
+    "role": "Tank / Destek",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Şafak Kalkanı"
+      },
+      {
+        "key": "W",
+        "name": "Tutulma"
+      },
+      {
+        "key": "E",
+        "name": "Zenit Kılıcı"
+      },
+      {
+        "key": "R",
+        "name": "Güneş Patlaması"
+      }
+    ],
+    "colors": [
+      "#b08968",
+      "#fefae0"
+    ]
+  },
+  {
+    "id": "irelia",
+    "name": "Irelia",
+    "role": "Dövüşçü",
+    "difficulty": "Yüksek",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Ionia Azmi"
+      },
+      {
+        "key": "W",
+        "name": "Keskin Dans"
+      },
+      {
+        "key": "E",
+        "name": "Meydan Okuma"
+      },
+      {
+        "key": "R",
+        "name": "Öncü Bıçaklar"
+      }
+    ],
+    "colors": [
+      "#8338ec",
+      "#ffafcc"
+    ]
+  },
+  {
+    "id": "kaisa",
+    "name": "Kai'Sa",
+    "role": "Nişancı",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "İçgüdüsel Silah"
+      },
+      {
+        "key": "W",
+        "name": "Hiçlik Arayıcı"
+      },
+      {
+        "key": "E",
+        "name": "Süper Şarj"
+      },
+      {
+        "key": "R",
+        "name": "Öldürme İçgüdüsü"
+      }
+    ],
+    "colors": [
+      "#7209b7",
+      "#4361ee"
+    ]
+  },
+  {
+    "id": "morgana",
+    "name": "Morgana",
+    "role": "Büyücü / Destek",
+    "difficulty": "Orta",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Karanlık Bağ"
+      },
+      {
+        "key": "W",
+        "name": "Kara Kalkan"
+      },
+      {
+        "key": "E",
+        "name": "Azaplı Gölge"
+      },
+      {
+        "key": "R",
+        "name": "Ruh Prangaları"
+      }
+    ],
+    "colors": [
+      "#5a189a",
+      "#c77dff"
+    ]
+  },
+  {
+    "id": "masteryi",
+    "name": "Master Yi",
+    "role": "Savaşçı / Suikastçı",
+    "difficulty": "Kolay",
+    "skills": [
+      {
+        "key": "Q",
+        "name": "Alfa Vuruşu"
+      },
+      {
+        "key": "W",
+        "name": "Meditasyon"
+      },
+      {
+        "key": "E",
+        "name": "Wuju Stili"
+      },
+      {
+        "key": "R",
+        "name": "Highlander"
+      }
+    ],
+    "colors": [
+      "#007f5f",
+      "#80b918"
+    ]
+  }
+]
