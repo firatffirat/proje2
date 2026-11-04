@@ -2,7 +2,8 @@
 window.GameUI = (() => {
   const $ = id => document.getElementById(id);
   let roomCode = null, selectedChampion = null, currentFilter = "Tümü";
-  let localLane = 1, targetLane = 1, matchEndAt = 0, timerHandle = null, cooldownHandle = null;
+  let localLane = 1, targetLane = 1, pendingLane = null;
+  let matchEndAt = 0, timerHandle = null, cooldownHandle = null;
   let latestPlayers = [], localStats = {hp:1000,mana:100,damage:0,hits:0};
 
   const skillSpecs = {
@@ -21,11 +22,13 @@ window.GameUI = (() => {
   function playerName() {
     const input = $("player-name-input");
     const name = input?.value.trim();
+
     if (!name) {
       toast("Önce oyuncu adını gir.");
       input?.focus();
       return null;
     }
+
     return name.slice(0,16);
   }
 
@@ -76,7 +79,6 @@ window.GameUI = (() => {
     );
   }
 
-  // Şampiyon kartları
   function renderChampions() {
     const grid = $("champion-grid");
     grid.innerHTML = "";
@@ -139,14 +141,25 @@ window.GameUI = (() => {
   }
 
   function renderStats(players) {
-    latestPlayers = players || latestPlayers;
+    if (!players) return;
+
+    // Sunucudan gelen eski konum, tahmini hareketi geri almasın.
+    latestPlayers = players.map(p => {
+      if (p.id === GameNetwork.socket.id && pendingLane !== null) {
+        return {...p,lane:pendingLane};
+      }
+      return p;
+    });
 
     const me = latestPlayers.find(p=>p.id===GameNetwork.socket.id);
     const enemy = latestPlayers.find(p=>p.id!==GameNetwork.socket.id);
 
     if (me) {
       localStats = me;
-      localLane = me.lane;
+
+      if (pendingLane === null) {
+        localLane = me.lane;
+      }
 
       $("self-hp").textContent = `${Math.ceil(me.hp)} / 1000`;
       setBar("self-health",me.hp,1000);
@@ -199,9 +212,14 @@ window.GameUI = (() => {
   function enterBattle(data) {
     show("battle");
     DuelGame.start();
-    renderStats(data.players);
 
     const me = data.players.find(p=>p.id===GameNetwork.socket.id);
+    localLane = me?.lane ?? 1;
+    targetLane = localLane;
+    pendingLane = null;
+
+    renderStats(data.players);
+
     const foe = data.players.find(p=>p.id!==GameNetwork.socket.id);
 
     $("self-champion-name").textContent =
@@ -211,9 +229,6 @@ window.GameUI = (() => {
       foe?.champion ? window.CHAMPIONS.find(c=>c.id===foe.champion)?.name || "RAKİP" : "RAKİP";
 
     showSkillNames(me?.champion);
-
-    localLane = me?.lane ?? 1;
-    targetLane = localLane;
     updateLaneUI();
 
     startTimer(data.duration ? data.duration*1000 : (data.remainingMs || 300000));
@@ -237,12 +252,19 @@ window.GameUI = (() => {
   }
 
   function move(delta) {
-    localLane = Math.max(0,Math.min(2,localLane+delta));
-    targetLane = localLane;
+    const nextLane = Math.max(0,Math.min(2,localLane+delta));
+    if (nextLane === localLane) return;
 
-    GameNetwork.move(localLane);
+    localLane = nextLane;
+    targetLane = nextLane;
+    pendingLane = nextLane;
+
+    // Önce ekranda hareket et, sonra sunucuya bildir.
+    DuelGame.predictLane(nextLane);
     updateLaneUI();
+
     GameAudio.play("move");
+    GameNetwork.move(nextLane);
   }
 
   function cast(skill) {
@@ -258,6 +280,22 @@ window.GameUI = (() => {
     if ((localStats.mana ?? 100) < spec.mana) {
       return toast("Yeterli mana yok.");
     }
+
+    const me = latestPlayers.find(p=>p.id===GameNetwork.socket.id);
+
+    // Yetenek animasyonunu sunucu cevabından önce başlat.
+    DuelGame.launch({
+      id:"predicted-"+Date.now(),
+      fromId:GameNetwork.socket.id,
+      champion:me?.champion,
+      skill,
+      lane:localLane
+    });
+
+    // Yerel mana göstergesini hemen güncelle.
+    localStats.mana = Math.max(0,(localStats.mana ?? 100)-spec.mana);
+    $("mana-value").textContent = `${Math.floor(localStats.mana)} / 100`;
+    setBar("mana-fill",localStats.mana,100);
 
     GameNetwork.cast(skill,localLane);
 
@@ -320,7 +358,6 @@ window.GameUI = (() => {
       b.onclick = () => show(b.dataset.back);
     });
 
-    // Oda oluştur
     $("btn-create-room").onclick = () => {
       const name = playerName();
       if (!name) return;
@@ -329,7 +366,6 @@ window.GameUI = (() => {
       GameNetwork.createRoom(name);
     };
 
-    // Odaya katıl
     $("btn-join-room").onclick = () => {
       const name = playerName();
       if (!name) return;
@@ -477,15 +513,30 @@ window.GameUI = (() => {
     GameNetwork.on("match:state",d=>renderStats(d.players));
 
     GameNetwork.on("player:moved",d=>{
+      const isMe = d.playerId === GameNetwork.socket.id;
+
+      if (isMe) {
+        pendingLane = null;
+        localLane = d.lane;
+        targetLane = d.lane;
+      }
+
       const players = latestPlayers.map(p=>
         p.id===d.playerId ? {...p,lane:d.lane} : p
       );
 
       latestPlayers = players;
+
       DuelGame.setState({players});
+      if (isMe) updateLaneUI();
     });
 
-    GameNetwork.on("skill:launched",d=>DuelGame.launch(d));
+    GameNetwork.on("skill:launched",d=>{
+      // Kendi yeteneğimiz zaten yerel olarak çizildi.
+      if (d.fromId !== GameNetwork.socket.id) {
+        DuelGame.launch(d);
+      }
+    });
 
     GameNetwork.on("skill:impact",d=>{
       DuelGame.impact(d);
@@ -504,6 +555,7 @@ window.GameUI = (() => {
     });
 
     GameNetwork.on("player:resources",d=>{
+      localStats.mana = d.mana;
       $("mana-value").textContent = `${Math.floor(d.mana)} / 100`;
       setBar("mana-fill",d.mana,100);
     });
