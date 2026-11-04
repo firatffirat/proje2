@@ -6,7 +6,6 @@ window.GameUI = (() => {
   const skillSpecs={Q:{mana:15,cd:5},W:{mana:20,cd:7},E:{mana:25,cd:9},R:{mana:50,cd:18}};
   const cooldownEnds={};
 
-  // Riot Data Dragon şampiyon ikonları
   const riotVersion="16.21.1";
   const championIcon=name =>
     `https://ddragon.leagueoflegends.com/cdn/${riotVersion}/img/champion/${name.replace(/[^A-Za-z]/g,"")}.png`;
@@ -61,7 +60,6 @@ window.GameUI = (() => {
       art.loading="lazy";
       portrait.append(art);
 
-      // Şampiyon ikonu ve ismi yan yana
       const nameRow=document.createElement("div");
       nameRow.style.display="flex";
       nameRow.style.alignItems="center";
@@ -123,12 +121,14 @@ window.GameUI = (() => {
 
     if(me){
       localStats=me;
+      localLane=me.lane;
       $("self-hp").textContent=`${Math.ceil(me.hp)} / 1000`;
       setBar("self-health",me.hp,1000);
       $("mana-value").textContent=`${Math.floor(me.mana)} / 100`;
       setBar("mana-fill",me.mana,100);
       $("damage-stat").textContent=me.damage||0;
       $("hit-stat").textContent=me.hits||0;
+      updateLaneUI();
     }
 
     if(enemy){
@@ -148,8 +148,7 @@ window.GameUI = (() => {
       $("match-timer").textContent=`${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;
     };
 
-    tick();
-    timerHandle=setInterval(tick,250);
+    tick();timerHandle=setInterval(tick,250);
   }
 
   function showSkillNames(championId){
@@ -171,7 +170,7 @@ window.GameUI = (() => {
 
     showSkillNames(me?.champion);
     localLane=me?.lane??1;
-    targetLane=1;
+    targetLane=localLane;
     updateLaneUI();
 
     startTimer(data.duration?data.duration*1000:(data.remainingMs||300000));
@@ -192,6 +191,7 @@ window.GameUI = (() => {
 
   function move(delta){
     localLane=Math.max(0,Math.min(2,localLane+delta));
+    targetLane=localLane;
     GameNetwork.move(localLane);
     updateLaneUI();
     GameAudio.play("move");
@@ -204,7 +204,9 @@ window.GameUI = (() => {
     if(cooldownEnds[skill]&&cooldownEnds[skill]>Date.now())return toast("Yetenek henüz hazır değil.");
     if((localStats.mana??100)<spec.mana)return toast("Yeterli mana yok.");
 
-    GameNetwork.cast(skill,targetLane);
+    // Yetenek bulunduğun şeride atılır.
+    GameNetwork.cast(skill,localLane);
+
     cooldownEnds[skill]=Date.now()+spec.cd*1000;
     btn.classList.add("cooling");
     GameAudio.play(skill==="R"?"ult":"cast");
