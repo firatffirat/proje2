@@ -35,8 +35,10 @@ window.GameUI = (() => {
     message("lobby-message",room.players.length===2?"Rakip bağlandı. Şampiyonunu seç.":"Rakibin odaya katılması bekleniyor.");
   }
 
+  // Şampiyon kartları: gerçek LoL portresi ve altında yalnızca isim.
   function renderChampions(){
-    const grid=$("champion-grid");grid.innerHTML="";
+    const grid=$("champion-grid");
+    grid.innerHTML="";
     const q=$("champion-search").value.trim().toLocaleLowerCase("tr");
 
     const filtered=window.CHAMPIONS.filter(c=>{
@@ -51,47 +53,28 @@ window.GameUI = (() => {
 
       const portrait=document.createElement("div");
       portrait.className="champion-portrait";
-      portrait.style.setProperty("--c1",c.colors[0]);
-      portrait.style.setProperty("--c2",c.colors[1]);
 
       const art=document.createElement("img");
-      art.src=`/assets/champions/${c.id}.svg`;
+      art.src=championIcon(c.name);
       art.alt=c.name;
       art.loading="lazy";
+      art.onerror=()=>{
+        art.style.display="none";
+      };
+
       portrait.append(art);
-
-      const nameRow=document.createElement("div");
-      nameRow.style.display="flex";
-      nameRow.style.alignItems="center";
-      nameRow.style.justifyContent="center";
-      nameRow.style.gap="7px";
-      nameRow.style.marginTop="5px";
-
-      const icon=document.createElement("img");
-      icon.src=championIcon(c.name);
-      icon.alt="";
-      icon.loading="lazy";
-      icon.style.width="28px";
-      icon.style.height="28px";
-      icon.style.objectFit="cover";
-      icon.style.borderRadius="5px";
-      icon.style.flexShrink="0";
-      icon.onerror=()=>{icon.style.display="none";};
 
       const name=document.createElement("strong");
       name.textContent=c.name;
 
-      nameRow.append(icon,name);
-
-      const role=document.createElement("small");
-      role.textContent=c.role;
-
-      card.append(portrait,nameRow,role);
+      card.append(portrait,name);
       card.onclick=()=>selectCard(c);
       grid.append(card);
     });
 
-    if(!filtered.length)grid.innerHTML='<p class="message">Şampiyon bulunamadı.</p>';
+    if(!filtered.length){
+      grid.innerHTML='<p class="message">Şampiyon bulunamadı.</p>';
+    }
   }
 
   function selectCard(c){
