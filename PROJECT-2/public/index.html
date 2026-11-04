@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="tr">
 <head>
@@ -30,11 +31,19 @@
 
     <section id="screen-rooms" class="screen">
       <button class="back" data-back="home">← GERİ</button>
-      <p class="eyebrow">ÇEVRİM İÇİ DÜELLO</p><h2>ODA SİSTEMİ</h2>
+      <p class="eyebrow">ÇEVRİM İÇİ DÜELLO</p>
+      <h2>ODA SİSTEMİ</h2>
+
+      <label for="player-name-input">OYUNCU ADI</label>
+      <input id="player-name-input" class="text-input" maxlength="16" placeholder="Oyuncu adını gir..." autocomplete="off">
+
       <button id="btn-create-room" class="primary">ODA OLUŞTUR</button>
+
       <div class="separator"><span>VEYA</span></div>
+
       <label for="room-code-input">ODA KODU</label>
       <input id="room-code-input" class="text-input code-input" maxlength="5" placeholder="ÖRN. A7K2P" autocomplete="off">
+
       <button id="btn-join-room" class="secondary">KODA KATIL</button>
       <p id="room-error" class="message"></p>
     </section>
@@ -145,4 +154,5 @@
 <script src="/js/game.js"></script>
 <script src="/js/interface.js"></script>
 <script src="/js/main.js"></script>
-</body></html>
+</body>
+</html>
